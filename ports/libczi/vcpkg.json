@@ -20,6 +20,10 @@
     {
       "name": "rapidjson",
       "host": true
+    },
+    {
+      "name": "zstd",
+      "host": true
     }
-  ]
+    ]
 }
