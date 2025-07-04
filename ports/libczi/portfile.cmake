@@ -3,7 +3,7 @@ vcpkg_from_github(
     REPO HakanAcundas/libczi
 #    REF 6e8298822b1e34b7a74b6717a9d2007739e2994d
 #    SHA512 842190c45b3124c793e384e5a0c0529a0dd1b9fa88f3242af4d548e5de0a2b7d3c5ae9009d8da43e4cfdbfda40baf3e663d31a04fb36c5a70c23ebc3b032912a
-    HEAD_REF jbl/zstd-test  # In order to the latest version of a branch, one must run "vcpkg install libczi --head".
+    HEAD_REF jbl/vcpkg-test  # In order to the latest version of a branch, one must run "vcpkg install libczi --head".
                             # vcpkg aims at "reproducible builds", so it wants to use a specific commit - and must be told to use the latest commit of a branch with this "--head" option.
 )
 
@@ -30,6 +30,8 @@ vcpkg_cmake_configure(
 )
 
 vcpkg_cmake_install()
+
+vcpkg_cmake_config_fixup()
 # vcpkg_cmake_config_fixup(CONFIG_PATH share/${PORT})
 
 # vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/LICENSE")
