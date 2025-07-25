@@ -1,0 +1,38 @@
+vcpkg_from_github(
+    OUT_SOURCE_PATH SOURCE_PATH
+    REPO HakanAcundas/libczi
+    REF 87c0ce5989ccf1233c87c35d6e46abc8c882be1d
+    SHA512 842190c45b3124c793e384e5a0c0529a0dd1b9fa88f3242af4d548e5de0a2b7d3c5ae9009d8da43e4cfdbfda40baf3e663d31a04fb36c5a70c23ebc3b032912a
+    HEAD_REF jbl/vcpkg-test  # In order to the latest version of a branch, one must run "vcpkg install libczi --head".
+                            # vcpkg aims at "reproducible builds", so it wants to use a specific commit - and must be told to use the latest commit of a branch with this "--head" option.
+)
+
+# Let vcpkg to find git
+vcpkg_find_acquire_program(
+    GIT
+)
+
+# Pass git to the port's cmake build system
+get_filename_component(GIT_EXE_PATH ${GIT} DIRECTORY)
+vcpkg_add_to_path(${GIT_EXE_PATH})
+
+# set(VCPKG_CMAKE_CONFIGURE_OPTIONS "-DFETCHCONTENT_FULLY_DISCONNECTED=OFF")
+
+vcpkg_cmake_configure(
+    SOURCE_PATH "${SOURCE_PATH}"
+    OPTIONS
+    ${FEATURE_OPTIONS}
+    -DLIBCZI_DO_NOT_SET_MSVC_RUNTIME_LIBRARY=ON
+    -DLIBCZI_BUILD_PREFER_EXTERNALPACKAGE_EIGEN3=ON
+    -DLIBCZI_BUILD_PREFER_EXTERNALPACKAGE_RAPIDJSON=ON
+    -DLIBCZI_BUILD_PREFER_EXTERNALPACKAGE_ZSTD=ON
+    -DLIBCZI_BUILD_UNITTESTS=OFF
+)
+
+vcpkg_cmake_install()
+
+vcpkg_cmake_config_fixup()
+# vcpkg_cmake_config_fixup(CONFIG_PATH share/${PORT})
+
+# vcpkg_install_copyright(FILE_LIST "${SOURCE_PATH}/LICENSE")
+# vcpkg_fixup_pkgconfig()
